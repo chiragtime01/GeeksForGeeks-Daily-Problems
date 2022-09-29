@@ -1,0 +1,17 @@
+
+class Solution {
+    
+    public int countSubArrayProductLessThanK(long a[], long n, long k)
+    {
+             if(k<=1)  return 0;
+        int lo=0, hi=0, res=0;
+        long prod = 1;
+        while(hi<n){
+            prod*=a[hi];
+            while(prod>=k)  prod/=a[lo++];
+            res+=(1+(hi-lo));
+            hi++;
+        }
+        return res;
+    }
+}
