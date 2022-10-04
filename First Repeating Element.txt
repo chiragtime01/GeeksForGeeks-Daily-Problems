@@ -1,0 +1,44 @@
+class Solution {
+    // Function to return the position of the first repeating element.
+    public static int firstRepeated(int[] arr, int n) {
+        int res=0;
+
+        HashMap<Integer, Integer> m  = new HashMap<>(); 
+
+        
+
+        for(int  i=0;i<n;i++){
+
+            
+
+            if(m.containsKey(arr[i]) == true)
+
+              m.put(arr[i], m.get(arr[i]) + 1);
+
+            else
+
+              m.put(arr[i], 1);
+
+        }
+
+        for(int i=0;i<n;i++){
+
+            if(m.get(arr[i])>1){
+
+                res=i+1;
+
+                break;
+
+            }
+
+            else{
+
+                res=-1;
+
+            }
+
+        }
+
+        return res;
+    }
+}
