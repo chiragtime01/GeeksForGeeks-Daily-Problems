@@ -1,0 +1,35 @@
+class Solution
+{
+    public int NthTerm(int N)
+    {
+          if(N==1) return 1;
+
+        if(isPrime(N)) return 0;
+
+        int i=1;
+
+        while(isPrime(N+i)==false && isPrime(N-i)==false){
+
+            i++;
+
+        }
+
+       return i;
+
+    }
+
+     boolean isPrime(int n){
+
+        for(int i=2;i<=Math.sqrt(n);i++){
+
+            if(n%i==0){
+
+                return false;
+
+            }
+
+        }
+
+        return true;
+    }
+}
