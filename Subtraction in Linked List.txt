@@ -1,0 +1,96 @@
+class Solution{
+    
+    static int len(Node head){
+        int ans = 0;
+        while(head!=null && ++ans>0) head = head.next;
+        return ans;
+    }
+    
+    static Node reverse(Node head){
+        if(head==null || head.next==null) return head;
+        Node prev=null;
+        while(head != null){
+            Node temp = head.next;
+            head.next = prev;
+            prev = head;
+            head = temp;
+        }
+        return prev;
+    }
+    
+    static Node subLinkedList(Node a, Node b){
+        // code here
+        while(a.next!=null && a.data==0) a = a.next;
+        while(b.next!=null && b.data==0) b = b.next;
+        int la = len(a);
+        int lb = len(b);
+        if(la==lb){
+            Node ta = a;
+            Node tb = b;
+            while(ta!=null && ta.data==tb.data){
+                ta = ta.next;
+                tb = tb.next;
+            }
+            if(ta!=null && tb.data>ta.data){
+                Node temp = a;
+                a = b;
+                b = temp;
+            }
+        }else if(lb>la){
+            Node temp = a;
+            a = b;
+            b = temp;
+        }
+        a = reverse(a);
+        b = reverse(b);
+        
+        int borr = 0;
+        Node ans = new Node(0);
+        Node ptr = ans;
+        while(b!=null){
+            if(borr==0){
+                if(b.data>a.data){
+                    borr = 1;
+                    ptr.next = new Node(10+a.data-b.data);
+                }else{
+                    ptr.next = new Node(a.data-b.data);
+                }
+            }else{
+                a.data--;
+                borr = 0;
+                if(a.data<0){
+                    a.data = 9;
+                    borr = 1;
+                }
+                if(b.data>a.data){
+                    borr = 1;
+                    ptr.next = new Node(10+a.data-b.data);
+                }else{
+                    ptr.next = new Node(a.data-b.data);
+                }
+            }
+            ptr = ptr.next;
+            a = a.next;
+            b = b.next;
+        }
+        while(a!=null){
+            if(borr==1){
+                a.data--;
+                borr = 0;
+                if(a.data<0){
+                    a.data = 9;
+                    borr = 1;
+                }
+                ptr.next = new Node(a.data);
+            }else{
+                ptr.next = a;
+                break;
+            }
+            ptr = ptr.next;
+            a = a.next;
+        }
+        ans = reverse(ans.next);
+        while(ans.next!=null && ans.data==0) ans = ans.next;
+        return ans;
+    }
+}
