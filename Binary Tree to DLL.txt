@@ -1,0 +1,94 @@
+class Solution
+{
+    //Function to convert binary tree to doubly linked list and return it.
+    Node bToDLL(Node root)
+    {
+	       root = f(root,false);
+
+        while(root.left!=null){
+
+            root = root.left;
+
+        }
+
+        return root;
+
+    }
+
+    public static Node f(Node root,boolean flag){
+
+        if(root==null){
+
+            return null;
+
+        }
+
+        Node prev = f(root.left,false);
+
+        Node next = f(root.right,true);
+
+        
+
+        if(prev==null && next==null){
+
+            
+
+        }
+
+        else if(prev==null && next!=null){
+
+            root.right = next;
+
+            root.right.left = root;
+
+        }
+
+        else if(next==null && prev!=null){
+
+            root.left = prev;
+
+            root.left.right = root;
+
+        }else{
+
+            root.left = prev;
+
+            root.left.right = root;
+
+            root.right = next;
+
+            root.right.left = root;
+
+        }
+
+        
+
+        // If flag is true that means we have to return the left most node of list to connect
+
+        if(flag){
+
+            while(root.left!=null){
+
+                root = root.left;
+
+            }
+
+        }
+
+        // If flag is false that means we have to return right most node of list to connect
+
+        else{
+
+            while(root.right!=null){
+
+                root= root.right;
+
+            }
+
+        }
+
+        
+
+        return root;	
+    }
+}
