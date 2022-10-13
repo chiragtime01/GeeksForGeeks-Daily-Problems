@@ -1,0 +1,45 @@
+
+class Solution{
+    
+    // Return the size of the largest sub-tree which is also a BST
+    static int max;
+    static int largestBst(Node root)
+    {
+        max = Integer.MIN_VALUE;
+        solve(root);
+        return max;
+    }
+    
+    static void solve(Node root){
+        
+        if(root==null) return;
+        boolean k = checkBst(root,Integer.MIN_VALUE,Integer.MAX_VALUE);
+        if(k){
+            int cmax = height(root);
+            max = Math.max(cmax,max);
+            return;
+        }
+        
+        solve(root.left);
+        solve(root.right);
+        
+    }
+    
+    static boolean checkBst(Node node, int min, int max)
+    {
+        if (node == null)
+            return true;
+
+        if (node.data < min || node.data > max)
+            return false;
+       
+        return (checkBst(node.left, min, node.data-1) &&
+                checkBst(node.right, node.data+1, max));
+    }
+    
+    static int height(Node root){
+        if(root==null) return 0;
+        return 1 + height(root.left) + height(root.right) ;
+    }
+    
+}
