@@ -1,0 +1,57 @@
+// User function Template for Java
+class Solution {
+
+    int shortestPath(int[][] grid, int[] source, int[] destination) {
+
+        // Your code here
+        ArrayList<int[]> arrlist = new ArrayList<>(grid.length * grid[0].length);
+        int steps = 0 ;
+        boolean[][] visited = new boolean[grid.length][grid[0].length];
+        for(int l = 0 ; l < grid.length ; l++){
+            for(int m = 0 ; m < grid[0].length ; m++){
+                if(grid[l][m] == 0){
+                    visited[l][m] = true;
+                }
+            }
+        }
+        arrlist.add(source);
+        while (arrlist.size() > 0) {
+int size = arrlist.size();
+            for(int j = 0 ; j < size ; j++) {
+                int[] cur = arrlist.get(0);
+                int currow = cur[0];
+                int curcolumn = cur[1];
+                arrlist.remove(0);
+                if(currow== destination[0] && curcolumn == destination[1]){
+                    return steps;
+                }
+
+                if (currow - 1 >= 0 && !visited[currow - 1][curcolumn]) {
+                    arrlist.add(new int[]{currow - 1, curcolumn});
+                    visited[currow-1][curcolumn] = true;
+                }
+                if (currow + 1 < grid.length && !visited[currow + 1][curcolumn]) {
+                    arrlist.add(new int[]{currow + 1, curcolumn});
+                    visited[currow+1][curcolumn] = true;
+
+                }
+
+                if (curcolumn - 1 >= 0 && !visited[currow][curcolumn - 1]) {
+                    arrlist.add(new int[]{currow, curcolumn - 1});
+                    visited[currow][curcolumn -1] = true;
+
+                }
+
+                if (curcolumn + 1 < grid[0].length && !visited[currow][curcolumn + 1]) {
+                    arrlist.add(new int[]{currow, curcolumn + 1});
+                    visited[currow][curcolumn+ 1] = true;
+
+                }
+
+            }
+            steps++;
+        }
+        return -1;
+
+    }
+}
