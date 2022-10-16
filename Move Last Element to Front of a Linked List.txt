@@ -1,0 +1,42 @@
+class Solution {
+    public static Node moveToFront(Node head) {
+           if(head.next == null){
+
+         return head;
+
+     }
+
+        
+
+        
+
+        Node temp = head;
+
+        Node prev = null;
+
+        while(temp.next!=null){
+
+            prev = temp;
+
+            temp = temp.next;
+
+        }
+
+        int data = temp.data;
+
+        prev.next = null;
+
+        
+
+        Node node = new Node(data);
+
+        node.next = head;
+
+        head = node;
+
+        
+
+        return head;
+    }
+}
+  
