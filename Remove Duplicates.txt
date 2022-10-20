@@ -1,0 +1,13 @@
+
+class Solution {
+    String removeDups(String S) {
+       HashSet<Character> set = new HashSet<Character>();
+        String s = "";
+        for(int i=0;i<S.length();i++){
+            if(!set.contains(S.charAt(i)))
+                s=s+S.charAt(i);
+            set.add(S.charAt(i));
+        }
+        return s;
+    }
+}
