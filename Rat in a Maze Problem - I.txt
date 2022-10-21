@@ -1,0 +1,79 @@
+class Solution {
+    //to check whether index is good to go or not
+    public static Boolean isSafe(int[][] m,int n,int x,int y,Boolean[][] visited){
+        if((x<n && x>=0) && (y<n && y>=0 )&& m[x][y]==1 && visited[x][y]==false)
+            return true;
+        return false;
+    }
+    
+    // function to solve the main problem
+    public static void solve(int[][] m,int n,ArrayList<String> ans,int x,int y,Boolean[][] visited,StringBuffer path){
+        if(x==n-1 && y==n-1){
+            ans.add(path.toString());
+            return ;
+        }
+        
+        //Set as true the visiting index
+        visited[x][y] = true;
+        
+        //Down
+        int newx = x+1;
+        int newy = y;
+        if(isSafe(m,n,newx,newy,visited)){
+            path.append("D");
+            solve(m,n,ans,newx,newy,visited,path);
+            path.deleteCharAt(path.length()-1);
+        }
+        
+        //left
+        newx = x;
+        newy = y-1;
+        if(isSafe(m,n,newx,newy,visited)){
+            path.append("L");
+            solve(m,n,ans,newx,newy,visited,path);
+            path.deleteCharAt(path.length()-1);
+        }
+        
+        //right
+        newx = x;
+        newy = y+1;
+        if(isSafe(m,n,newx,newy,visited)){
+            path.append("R");
+            solve(m,n,ans,newx,newy,visited,path);
+            path.deleteCharAt(path.length()-1);  
+        }
+        
+        //Up
+        newx = x-1;
+        newy = y;
+        if(isSafe(m,n,newx,newy,visited)){
+            path.append("U");
+            solve(m,n,ans,newx,newy,visited,path);
+            path.deleteCharAt(path.length()-1);
+        }
+        
+        visited[x][y] = false;
+        
+    }
+    
+    public static ArrayList<String> findPath(int[][] m, int n) {
+        // Your code here
+        ArrayList<String> ans = new ArrayList<String>();
+        if(m[0][0]==0)
+            return ans;
+        int srcx = 0;
+        int srcy = 0;
+        
+        Boolean[][] visited = new Boolean[n][n];
+        
+        for(int i = 0;i<n;i++)
+            for(int j = 0;j<n;j++)
+                visited[i][j] = false;
+        
+        StringBuffer path= new StringBuffer();  
+        
+        solve(m,n,ans,srcx,srcy,visited,path);
+        Collections.sort(ans);
+        return ans;
+    }
+}
