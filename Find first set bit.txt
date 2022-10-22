@@ -1,0 +1,12 @@
+class Solution
+{
+    //Function to find position of first set bit in the given number.
+    public static int getFirstSetBit(int n){
+            
+      if(n==0){
+          return 0;
+      }
+      return (int)(Math.log(n&(-n))/Math.log(2))+1;
+            
+    }
+}
