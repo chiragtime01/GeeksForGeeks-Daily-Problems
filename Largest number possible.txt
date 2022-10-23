@@ -1,0 +1,25 @@
+class Solution{
+    static String findLargest(int N, int S){
+         if(S==0 && N!=1){
+           return "-1";
+       }
+       int sum=0;
+       StringBuilder str = new StringBuilder();
+       while(sum<S && str.length() < N){
+           if(S<=9){
+               str.append(S+"");
+               S-=S;
+           }
+           else{
+               str.append(9);
+               S-=9;
+           }
+       }
+       while(str.length()<N){
+           str.append(0);
+       }
+       if(S==0)
+           return str.toString();
+       return "-1";
+    }
+}
