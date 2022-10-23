@@ -1,0 +1,26 @@
+class Solution
+{
+    ArrayList<Integer> commonElements(int A[], int B[], int C[], int n1, int n2, int n3) 
+    {
+        ArrayList al1=new ArrayList();
+        HashMap<Integer,Integer> map=new HashMap<>();
+        for(int i=0;i<n1;i++){
+            map.put(A[i],1);
+        }
+        for(int i=0;i<n2;i++){
+            if(map.containsKey(B[i])){
+            map.put(B[i],2);}
+        }
+        for(int i=0;i<n3;i++){
+            if(map.containsKey(C[i]) && map.get(C[i])==2){
+            map.put(C[i],3);}
+        }
+        for(Map.Entry<Integer,Integer> entry : map.entrySet()){
+            if(entry.getValue()==3){
+                al1.add(entry.getKey());
+            }
+        }
+       Collections.sort(al1);
+       return al1;
+    }
+}
