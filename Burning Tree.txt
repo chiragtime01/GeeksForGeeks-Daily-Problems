@@ -1,0 +1,142 @@
+class Solution
+{
+    /*class Node {
+    	int data;
+    	Node left;
+    	Node right;
+    
+    	Node(int data) {
+    		this.data = data;
+    		left = null;
+    		right = null;
+    	}
+    }*/
+    
+    public static int minTime(Node root, int target) 
+
+    {
+
+        // Your code goes here
+
+        
+
+        //Making an adjacency list
+
+        HashMap<Integer,ArrayList<Integer>> hm = new HashMap<Integer,ArrayList<Integer>>();
+
+        HashMap<Integer,Boolean> visited = new HashMap<>();//creating boolean visited list for BFS
+
+        Queue<Node> queue = new LinkedList<>();
+
+        if(root==null)return 0;
+
+        queue.add(root);
+
+        while(!queue.isEmpty()){
+
+            Node temp = queue.poll();
+
+            if(temp.left!=null){
+
+                queue.add(temp.left);
+
+                if(!hm.containsKey(temp.data)){
+
+                    hm.put(temp.data,new ArrayList<Integer>());
+
+                    visited.put(temp.data,false);
+
+                }
+
+                hm.get(temp.data).add(temp.left.data);
+
+                if(!hm.containsKey(temp.left.data)){
+
+                    hm.put(temp.left.data,new ArrayList<Integer>());
+
+                    visited.put(temp.left.data,false);
+
+                }
+
+                hm.get(temp.left.data).add(temp.data);
+
+            }
+
+            
+
+            if(temp.right!=null){
+
+                queue.add(temp.right);
+
+                if(!hm.containsKey(temp.data)){
+
+                    hm.put(temp.data,new ArrayList<Integer>());
+
+                    visited.put(temp.data,false);
+
+                }
+
+                hm.get(temp.data).add(temp.right.data);
+
+                if(!hm.containsKey(temp.right.data)){
+
+                    hm.put(temp.right.data,new ArrayList<Integer>());
+
+                    visited.put(temp.right.data,false);
+
+                }
+
+                hm.get(temp.right.data).add(temp.data);
+
+            }
+
+        }
+
+        //List doesn't contain the target then return 0;
+
+        if(!hm.containsKey(target))return 0;
+
+        
+
+        //Breadth First Search
+
+        
+
+        Queue<Integer> q = new LinkedList<>();
+
+        q.add(target);
+
+        visited.put(target,true);
+
+        int time = 0;
+
+        while(!q.isEmpty()){
+
+            int size = q.size();
+
+            for(int i=0;i<size;i++){
+
+                int node = q.poll();
+
+                for(int it : hm.get(node)){
+
+                    if(!visited.get(it)){
+
+                        visited.put(it,true);
+
+                        q.add(it);
+
+                    }
+
+                }
+
+            }
+
+            time++;
+
+        }
+
+        return time-1;
+
+    }
+}
