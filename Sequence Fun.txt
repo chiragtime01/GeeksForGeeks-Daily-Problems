@@ -1,0 +1,14 @@
+class Solution
+{    
+    public final int mod = 1000000007;
+    public int NthTerm(int n)
+    {
+        // code here
+        if(n == 1) return 2;
+        long N = 2;
+        for(int i=2; i<=n; i++){
+            N = ((N%mod)*(i%mod)+1)%mod;
+        }
+        return (int)N;
+    }
+}
