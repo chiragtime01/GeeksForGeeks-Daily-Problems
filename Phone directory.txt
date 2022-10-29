@@ -1,0 +1,30 @@
+class Solution{
+    static ArrayList<ArrayList<String>> displayContacts(int n, 
+                                        String contact[], String s)
+    {
+                ArrayList<ArrayList<String>> ans=new ArrayList<>();
+        HashSet<String> set=new HashSet<>();
+        for(String temp:contact){
+            set.add(temp);
+        }
+        int m=s.length();
+        StringBuilder sb=new StringBuilder();
+        int j=0;
+        while(j<m){
+            sb.append(s.charAt(j));
+            ArrayList<String> list=new ArrayList<>();
+          for(String t:set){
+              if(j>t.length()) continue;
+              else if(t.length()==j && sb.toString().equals(t)) list.add(t);
+              else if(j<t.length() && sb.toString().equals(t.substring(0,j+1))) list.add(t);
+          }
+            if(list.size()==0) list.add("0");
+            
+            Collections.sort(list);
+            ans.add(list);
+             
+            j++;
+        }
+        return ans;
+    }
+}
