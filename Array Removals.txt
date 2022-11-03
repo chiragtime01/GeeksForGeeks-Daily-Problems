@@ -1,0 +1,20 @@
+class Solution {
+    int removals(int[] arr, int n, int k) {
+         Arrays.sort(arr);
+        int i = 0, j = 1;
+        int curLen = 0, maxLen = 0;
+        while(j<n){
+            if(arr[j]-arr[i] > k){
+                i++;
+                curLen --;
+            }
+            else{
+                curLen++;
+                j++;
+            }
+            maxLen = Math.max(maxLen, curLen);
+            
+        }
+        return n - maxLen - 1;
+    }
+}
