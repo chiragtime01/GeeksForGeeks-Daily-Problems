@@ -1,0 +1,12 @@
+class Solution
+{
+    String baseEquiv(int n, int m)
+    {
+          for(int index = 2;index <=32;index++){
+            if(Math.pow(index,m-1) > n) 
+                continue;
+            if(Math.pow(index,m) > n) return "Yes";
+        }
+        return "No";
+    }
+}
