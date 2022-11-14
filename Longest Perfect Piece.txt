@@ -1,0 +1,31 @@
+class Solution {
+    static int longestPerfectPiece(int[] arr, int N) {
+                PriorityQueue<Integer> mn=new PriorityQueue<>(),mx=new PriorityQueue<>(Collections.reverseOrder());
+
+        int ans = 0;
+
+        for(int i=0, j=0; i<N; i++)
+
+        {
+
+            mx.add(arr[i]);
+
+            mn.add(arr[i]);
+
+            while (j<N && mx.peek()-mn.peek()>1){
+
+                mx.remove(arr[j]);
+
+                mn.remove(arr[j++]);
+
+            }
+
+     ans = Math.max(ans, mx.size());
+
+        }
+
+        
+
+        return ans;
+    }
+};
